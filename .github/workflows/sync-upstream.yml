@@ -1,0 +1,89 @@
+name: "Sync upstream & build Windows"
+
+on:
+  schedule:
+    # Vérifie chaque lundi à 6h00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      force_build:
+        description: "Forcer un nouveau build Windows même sans nouvelle version"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  sync-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    outputs:
+      new_version: ${{ steps.check.outputs.new_version }}
+      version: ${{ steps.check.outputs.version }}
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/Melvynx/Parler.git || true
+          git fetch upstream
+
+      - name: Get current version
+        id: current
+        run: |
+          VERSION=$(grep -o '"version": "[^"]*"' src-tauri/tauri.conf.json | cut -d'"' -f4)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Merge upstream changes
+        id: merge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git merge upstream/main --no-edit --strategy-option=ours || echo "Nothing to merge"
+
+      - name: Restore fork customizations (tauri.conf.json)
+        run: |
+          # Restaurer notre pubkey et endpoint après le merge
+          node -e "
+          const fs = require('fs');
+          const p = 'src-tauri/tauri.conf.json';
+          const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+          c.plugins = c.plugins || {};
+          c.plugins.updater = {
+            pubkey: 'dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRFNkI1NUMxRDdEMThDMDEKUldRQmpOSFh3VlZyVHI3QlhTNFlQRXo4QThBVGZEMjNPRlF2S1Rlb2NsMXhMRDM0bVdXTHlud00K',
+            endpoints: ['https://github.com/thierryvm/Parler/releases/latest/download/latest.json']
+          };
+          fs.writeFileSync(p, JSON.stringify(c, null, 2) + '\n');
+          console.log('Customizations restored');
+          "
+
+      - name: Get new version
+        id: check
+        run: |
+          VERSION=$(grep -o '"version": "[^"]*"' src-tauri/tauri.conf.json | cut -d'"' -f4)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "$VERSION" != "${{ steps.current.outputs.version }}" ] || [ "${{ inputs.force_build }}" = "true" ]; then
+            echo "new_version=true" >> "$GITHUB_OUTPUT"
+            echo "New version detected: $VERSION (was ${{ steps.current.outputs.version }})"
+          else
+            echo "new_version=false" >> "$GITHUB_OUTPUT"
+            echo "No new version (still $VERSION)"
+          fi
+
+      - name: Push merged changes
+        if: steps.check.outputs.new_version == 'true'
+        run: git push origin main
+
+  build-windows:
+    needs: sync-and-build
+    if: needs.sync-and-build.outputs.new_version == 'true'
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      create-release: true
+    secrets: inherit

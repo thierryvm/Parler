@@ -1,3 +1,12 @@
+# Parler — Windows Fork (thierryvm)
+
+[![Windows Build](https://img.shields.io/badge/Windows-x64-blue?logo=windows)](https://github.com/thierryvm/Parler/releases/latest)
+[![Upstream](https://img.shields.io/badge/upstream-Melvynx%2FParler-lightgrey)](https://github.com/Melvynx/Parler)
+
+> Fork Windows de [Melvynx/Parler](https://github.com/Melvynx/Parler) — builds Windows x64 auto-publiés.
+
+---
+
 # Parler
 
 > **This is a personal fork of [cjpais/Handy](https://github.com/cjpais/Handy)** by Melvyn.
