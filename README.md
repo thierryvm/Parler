@@ -1,4 +1,28 @@
-# Parler
+# Parler — Windows Fork
+
+[![Windows Build](https://img.shields.io/badge/Windows-x64-blue?logo=windows)](https://github.com/thierryvm/Parler/releases/latest)
+[![Upstream](https://img.shields.io/badge/upstream-Melvynx%2FParler-lightgrey)](https://github.com/Melvynx/Parler)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+> **Fork de [Melvynx/Parler](https://github.com/Melvynx/Parler)** avec support Windows natif.
+> Parler est lui-même un fork de [cjpais/Handy](https://github.com/cjpais/Handy).
+
+## Installation Windows
+
+Télécharge le dernier installeur depuis la page [Releases](https://github.com/thierryvm/Parler/releases/latest) :
+
+- **`Parler_x.x.x_x64-setup.exe`** — installeur recommandé
+- **`Parler_x.x.x_x64_en-US.msi`** — format MSI
+
+> Windows SmartScreen peut afficher un avertissement au premier lancement (build sans certificat commercial).
+> Clique **"Informations complémentaires"** → **"Exécuter quand même"**.
+
+## Mises à jour
+
+Ce fork se synchronise automatiquement avec [Melvynx/Parler](https://github.com/Melvynx/Parler) chaque semaine.
+Quand une nouvelle version est disponible upstream, un nouveau build Windows est automatiquement publié ici.
+
+---
 
 > **This is a personal fork of [cjpais/Handy](https://github.com/cjpais/Handy)** by Melvyn.
 > It adds custom features on top of the original Handy app while keeping full compatibility with upstream.
