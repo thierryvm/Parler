@@ -1,3 +1,7 @@
+# Tauri signing keys (NEVER commit these)
+tauri.key
+tauri.key.pub
+
 # Logs
 logs
 *.log
