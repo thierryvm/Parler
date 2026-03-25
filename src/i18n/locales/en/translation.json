@@ -12,6 +12,7 @@
     "models": "Models",
     "advanced": "Advanced",
     "postProcessing": "Post Process",
+    "terminal": "Terminal",
     "history": "History",
     "debug": "Debug",
     "about": "About"
