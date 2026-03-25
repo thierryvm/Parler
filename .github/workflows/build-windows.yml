@@ -52,6 +52,8 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           args: "--bundles nsis,msi"
 
@@ -102,7 +104,10 @@ jobs:
 
             Built from upstream Melvynx/Parler.
 
-            Note: This is an unsigned build. Windows SmartScreen may show a warning on first launch. Click "More info" then "Run anyway".
+            Fork de [Melvynx/Parler](https://github.com/Melvynx/Parler) avec support Windows natif.
+
+            **Installation :** télécharge `Parler_x.x.x_x64-setup.exe` et lance l'installeur.
+            Note : Windows SmartScreen peut afficher un avertissement au premier lancement → "Informations complémentaires" → "Exécuter quand même".
           files: artifacts/**/*
           draft: false
           prerelease: false
