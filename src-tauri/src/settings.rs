@@ -391,6 +391,8 @@ pub struct AppSettings {
     pub post_process_actions: Vec<PostProcessAction>,
     #[serde(default)]
     pub saved_processing_models: Vec<SavedProcessingModel>,
+    #[serde(default)]
+    pub terminal_mode_enabled: bool,
 }
 
 fn default_model() -> String {
@@ -808,6 +810,7 @@ pub fn get_default_settings() -> AppSettings {
         gemini_model: default_gemini_model(),
         post_process_actions: Vec::new(),
         saved_processing_models: Vec::new(),
+        terminal_mode_enabled: false,
     }
 }
 

@@ -27,7 +27,25 @@ Quand une nouvelle version est disponible upstream, un nouveau build Windows est
 > **This is a personal fork of [cjpais/Handy](https://github.com/cjpais/Handy)** by Melvyn.
 > It adds custom features on top of the original Handy app while keeping full compatibility with upstream.
 
-## Custom Additions
+## Custom Additions (Windows Fork)
+
+### Mode Terminal — Dictée de commandes shell en français
+
+Fonctionnalité exclusive à ce fork : dictez une phrase en français et obtenez la commande shell correspondante, **sans clé API ni connexion internet**.
+
+- **Hors-ligne** — matching local via un dictionnaire de +50 phrases françaises (navigation, fichiers, Git, npm, processus, réseau, utilitaires)
+- **Universel** — compatible PowerShell 7, bash, zsh, Warp et tout terminal moderne
+- **Activation** — onglet *Terminal* dans les réglages → activer le toggle *Mode Terminal*
+- **Utilisation** — quand le Mode Terminal est activé, chaque transcription est comparée au dictionnaire ; si une correspondance est trouvée, la commande shell est collée à la place du texte dictée
+
+**Exemples :**
+| Phrase dictée | Commande collée |
+|---|---|
+| "statut git" | `git status` |
+| "liste les fichiers" | `ls` |
+| "lance le dev" | `npm run dev` |
+| "commit avec message" | `git commit -m ""` |
+| "remonte d'un dossier" | `cd ..` |
 
 ### Rebranding
 

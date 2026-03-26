@@ -1,7 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { Terminal } from "lucide-react";
 import { SettingsGroup } from "@/components/ui/SettingsGroup";
+import { ToggleSwitch } from "@/components/ui/ToggleSwitch";
 import { Input } from "@/components/ui/Input";
+import { useSettings } from "@/hooks/useSettings";
 import { TERMINAL_DICTIONARY } from "@/lib/terminal/dictionary.fr";
 import { matchCommand, normalize } from "@/lib/terminal/matcher";
 
@@ -25,6 +27,9 @@ function getCategoryForCommand(command: string): string {
 }
 
 export const TerminalModeSettings: React.FC = () => {
+  const { getSetting, updateSetting, isUpdating } = useSettings();
+  const enabled = getSetting("terminal_mode_enabled") ?? false;
+
   const [testInput, setTestInput] = useState("");
   const [filterText, setFilterText] = useState("");
 
@@ -56,6 +61,19 @@ export const TerminalModeSettings: React.FC = () => {
 
   return (
     <div className="max-w-3xl w-full mx-auto space-y-6">
+      {/* Toggle principal */}
+      <SettingsGroup>
+        <ToggleSwitch
+          checked={enabled}
+          onChange={(v) => updateSetting("terminal_mode_enabled", v)}
+          isUpdating={isUpdating("terminal_mode_enabled")}
+          label="Mode Terminal"
+          description="Convertit vos phrases françaises en commandes shell. Fonctionne sans clé API ni connexion internet."
+          descriptionMode="inline"
+          grouped={true}
+        />
+      </SettingsGroup>
+
       {/* Info banner */}
       <div className="bg-background border border-mid-gray/20 rounded-lg p-4 space-y-1">
         <div className="flex items-center gap-2">

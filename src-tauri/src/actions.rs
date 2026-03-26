@@ -1,6 +1,7 @@
 #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
 use crate::apple_intelligence;
 use crate::audio_feedback::{play_feedback_sound, play_feedback_sound_blocking, SoundType};
+use crate::terminal_mode;
 use crate::managers::audio::AudioRecordingManager;
 use crate::managers::history::HistoryManager;
 use crate::managers::transcription::TranscriptionManager;
@@ -689,6 +690,8 @@ impl ShortcutAction for TranscribeAction {
                                 .await
                             } else if post_process {
                                 post_process_transcription(&settings, &final_text).await
+                            } else if settings.terminal_mode_enabled {
+                                terminal_mode::match_terminal_command(&final_text)
                             } else {
                                 None
                             };

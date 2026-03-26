@@ -16,6 +16,7 @@ mod overlay;
 mod settings;
 mod shortcut;
 mod signal_handle;
+mod terminal_mode;
 mod transcription_coordinator;
 mod tray;
 mod tray_i18n;
@@ -311,6 +312,7 @@ pub fn run(cli_args: CliArgs) {
         shortcut::change_auto_submit_key_setting,
         shortcut::change_post_process_enabled_setting,
         shortcut::change_experimental_enabled_setting,
+        shortcut::change_terminal_mode_enabled_setting,
         shortcut::change_post_process_base_url_setting,
         shortcut::change_post_process_api_key_setting,
         shortcut::change_post_process_model_setting,
