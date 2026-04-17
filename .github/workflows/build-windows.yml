@@ -8,6 +8,13 @@ on:
         required: false
         type: boolean
         default: true
+  workflow_call:
+    inputs:
+      create-release:
+        description: "Create a GitHub release with the built artifacts"
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   build-windows-x64:
