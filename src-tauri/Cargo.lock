@@ -4079,7 +4079,7 @@ dependencies = [
 
 [[package]]
 name = "parler"
-version = "0.7.17"
+version = "0.7.19"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
