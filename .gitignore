@@ -47,3 +47,6 @@ secrets.env
 
 # Local release helpers / secrets
 .claude/skills/release-macos/
+
+# Reglages et verrous de l'assistant, propres a la machine
+.claude/
