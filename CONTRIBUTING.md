@@ -52,6 +52,7 @@ Before you begin, ensure you have the following installed:
    ```
 
 6. **Run in development mode**:
+
    ```bash
    bun run tauri dev
    # On macOS if you encounter cmake errors:
